@@ -14,7 +14,7 @@ def pixel_to_ascii(pixel: int):
 
     return ascii
 
-def main():
+def main(to_file: bool = False):
     # Get image.
     img_name = input("Filename (/img/{filename}): ")
     with Image.open(f"./img/{img_name}") as image:
@@ -23,13 +23,19 @@ def main():
         width, height = image.size
         px = image.load()
 
-        with open('output.txt', 'w') as file:
+        if to_file:
+            with open('output.txt', 'w') as file:
+                for x in range(width):
+                    for y in range(height):
+                        file.write(pixel_to_ascii(pixel=px[y, x]))
+                    file.write('\n')
+        else:
             for x in range(width):
                 for y in range(height):
                     print(pixel_to_ascii(pixel=px[y, x]), end = '')
-                    # file.write(pixel_to_ascii(pixel=px[y, x]))
-                # file.write('\n')
                 print()
 
+
 if __name__ == "__main__":
-    main()
+    resp = input("Write to output.txt? (y/n)" )
+    main(to_file = (resp=='y'))
