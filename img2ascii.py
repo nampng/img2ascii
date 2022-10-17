@@ -5,32 +5,23 @@ from PIL import Image
 
 # The characters used to represent the gray scale images can be found here: http://paulbourke.net/dataformats/asciiart/
 # ( .:-=+*#%@)
-# ($@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. )
+# ($@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. ) This just doesn't look good.
 
 scale = {}
 
 
-def create_scale(use_long: bool = False):
-    short = " .:-=+*#%@"
-    long = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+def create_scale(flip_scale: bool = False):
+    chars = " .:-=+*#%@"
+    val = 0
+    step = 255 / len(chars)
 
-    # could probably use a comprehension of some sort here but this looks fine.
-
-    if use_long:
-        val = 0
-        step = 255 / len(long)
-
-        for char in long:
-            scale[char] = val
-            val += step
-
-    else:
+    if flip_scale:  # This will make white == "@" and black == " "
         val = 255
-        step = 255 / len(short)
+        step = -step
 
-        for char in short:
-            scale[char] = val
-            val -= step
+    for char in chars:
+        scale[char] = val
+        val += step
 
 
 def pixel_to_ascii(pixel: int):
