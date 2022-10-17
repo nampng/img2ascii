@@ -14,6 +14,8 @@ def create_scale(use_long: bool = False):
     short = " .:-=+*#%@"
     long = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
 
+    # could probably use a comprehension of some sort here but this looks fine.
+
     if use_long:
         val = 0
         step = 255 / len(long)
@@ -33,12 +35,12 @@ def create_scale(use_long: bool = False):
 
 def pixel_to_ascii(pixel: int):
 
-    ascii = min(scale, key=lambda k: abs(scale[k] - pixel))
+    char = min(scale, key=lambda k: abs(scale[k] - pixel))
 
-    return ascii
+    return char
 
 
-def main(to_file: bool = False):
+def main():
     # Get image.
     img_name = input("Filename (/img/{filename}): ")
     with Image.open(f"./img/{img_name}") as image:
@@ -48,22 +50,16 @@ def main(to_file: bool = False):
         print(f"image {width=}, {height=}")
         px = image.load()
 
-        if to_file:
-            with open("output.txt", "w") as file:
-                for x in range(width):
-                    for y in range(height):
-                        file.write(pixel_to_ascii(pixel=px[y, x]))
-                    file.write("\n")
-        else:
-
+        with open("output.txt", "w") as file:
             for y in range(height):
                 for x in range(width):
-                    # print(f"({x=}, {y=})", end="")
-                    print(pixel_to_ascii(pixel=px[x, y]), end="")
+                    char = pixel_to_ascii(pixel=px[x, y])
+                    print(char, end="")
+                    file.write(char)
                 print()
+                file.write("\n")
 
 
 if __name__ == "__main__":
     create_scale()
-    resp = input("Write to output.txt? (y/n)")
-    main(to_file=(resp == "y"))
+    main()
