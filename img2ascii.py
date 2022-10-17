@@ -12,11 +12,11 @@ scale = {}
 
 def create_scale(flip_scale: bool = False):
     chars = " .:-=+*#%@"
-    val = 0
-    step = 255 / len(chars)
+    val = 255  # white = ' ', black = '@'
+    step = -255 / len(chars)
 
     if flip_scale:  # This will make white == "@" and black == " "
-        val = 255
+        val = 0
         step = -step
 
     for char in chars:
@@ -52,5 +52,5 @@ def main():
 
 
 if __name__ == "__main__":
-    create_scale()
+    create_scale(flip_scale=False)
     main()
