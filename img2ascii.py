@@ -2,6 +2,8 @@
 # Take in an image file and convert it into ASCII art.
 
 from PIL import Image
+
+# The characters used to represent the gray scale images can be found here: http://paulbourke.net/dataformats/asciiart/
 # ( .:-=+*#%@)
 
 scale = {" ": 0, ".": 55, ":":80, "-":105, "=":130, "+":155, "*":180, "#":205, "%":230, "@":255}
