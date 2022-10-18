@@ -71,7 +71,7 @@ def convert(scale_type: str = "short", flip: bool = False):
         px = image.load()
 
         with open("output.txt", "w") as file:
-            for y in range(0, height, 2):
+            for y in range(0, height, 2): # Sample half the height, due to the aspect ratio of the characters
                 for x in range(width):
                     char = pixel_to_ascii(pixel=px[x, y], scale=scale)
                     print(char, end="")
