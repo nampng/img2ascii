@@ -6,7 +6,7 @@ import argparse
 
 # The characters used to represent the gray scale images can be found here: http://paulbourke.net/dataformats/asciiart/
 # ( .:-=+*#%@)
-# ($@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. ) This just doesn't look good.
+# ($@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. ) Short looks way better than long, but the option will be there in case someone wants it.
 
 
 # Arguments for running in command line.
@@ -18,7 +18,7 @@ parser.add_argument(
     nargs="?",
     type=str,
     choices=["short", "long"],
-    help="Scale to be used. Short provides a less detailed image, as opposed to long.",
+    help="Scale to be used. Either scale will use different characters.",
 )
 parser.add_argument(
     "--flip",
@@ -60,7 +60,7 @@ def convert(scale_type: str = "short", flip: bool = False):
     img_name = input("Filename (/img/{filename}): ")
     with Image.open(f"./img/{img_name}") as image:
         image = image.convert("L")
-        image = image.resize(size=(50, 50))
+        image = image.resize(size=(100, 100))
         width, height = image.size
         print(f"image {width=}, {height=}")
         px = image.load()
