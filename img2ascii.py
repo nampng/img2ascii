@@ -27,9 +27,13 @@ parser.add_argument(
 )
 
 
-def short_scale(flip: bool = False):
+def create_scale(scale_type: str = "short", flip: bool = False):
+    if scale_type == "short":
+        chars = " .:-=+*#%@"
+    elif scale_type == "long":
+        chars = " .'`^\",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+
     scale = {}
-    chars = " .:-=+*#%@"
     val = 255  # white = ' ', black = '@'
     step = -(255 // len(chars))
 
@@ -40,17 +44,8 @@ def short_scale(flip: bool = False):
     for char in chars:
         scale[char] = val
         val += step
-
-    print(scale)
-
+    
     return scale
-
-
-def create_scale(scale_type: str = "short", flip: bool = False):
-    if scale_type == "short":
-        return short_scale(flip)
-    elif scale_type == "long":
-        return {}
 
 
 def pixel_to_ascii(pixel: int, scale):
@@ -78,6 +73,8 @@ def convert(scale_type: str = "short", flip: bool = False):
                     file.write(char)
                 print()
                 file.write("\n")
+
+    print("Done!")
 
 
 if __name__ == "__main__":
